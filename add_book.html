@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Book</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">BridgeRead</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="add_book.html">Agrega Libro</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="add_category.html">Agregar Categoria</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <h2>Add New Book</h2>
+      <form action="submit_book.php" method="post">
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" class="form-control" id="title" name="title" />
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author:</label>
+          <input type="text" class="form-control" id="author" name="author" />
+        </div>
+
+        <div class="form-group">
+          <label for="isbn">ISBN:</label>
+          <input type="text" class="form-control" id="isbn" name="isbn" />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea
+            class="form-control"
+            id="description"
+            name="description"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input type="text" class="form-control" id="price" name="price" />
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Quantity Available:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="quantity"
+            name="quantity"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="genre">Genre:</label>
+          <input type="text" class="form-control" id="genre" name="genre" />
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select class="form-control" id="category" name="category">
+            <!-- Categories will be populated dynamically using JavaScript -->
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript to populate categories -->
+    <script>
+      // Fetch categories from get_categories.php
+      fetch("get_categories.php")
+        .then((response) => response.json())
+        .then((categories) => {
+          // Populate the dropdown with categories
+          const categoryDropdown = document.getElementById("category");
+          categories.forEach((category) => {
+            const option = document.createElement("option");
+            option.value = category.id;
+            option.textContent = category.category_name;
+            categoryDropdown.appendChild(option);
+          });
+        })
+        .catch((error) => console.error("Error fetching categories:", error));
+    </script>
+  </body>
+</html>
